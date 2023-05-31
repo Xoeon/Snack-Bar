@@ -1,0 +1,9 @@
+{% if snack_request_list %}
+    <ul>
+        {% for snack in snack_request_list %}
+        <li><a href="/snack/{{ snack.id }}/">{{ snack.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+<p>신청된 간식이 없습니다.</p>
+{% endif %}
