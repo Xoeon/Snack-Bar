@@ -2,11 +2,15 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Snack
 from .forms import RequestForm
+from django.core.paginator import Paginator
 
 
 def index(request):
+    page = request.GET.get('page', '1')
     snack_request_list = Snack.objects.order_by('-create_date')
-    context = {'snack_request_list': snack_request_list}
+    paginator = Paginator(snack_request_list, 10)
+    page_obj = paginator.get_page(page)
+    context = {'snack_request_list': page_obj}
     return render(request, 'snack/snack_request_list.html', context)
 
 

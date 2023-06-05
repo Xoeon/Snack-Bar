@@ -11,14 +11,27 @@
             </tr>
         </thead>
         <tbody>
-            {% if snack_request_list %} 
+            {% if snack_request_list %}
             {% for snack in snack_request_list %}
             <tr>
                 <td style="text-align: center; vertical-align: middle;">{{ snack.name }}</td>
+                {% if snack.image %}
                 <td style="text-align: center; vertical-align: middle;">
-                    <img src="{{ snack.image.url }}" width="100px" height="100px"
+                    <img src="{{ snack.image.url }}" width="100px" height="100px" </td>
+                    {% else %}
+                <td style="text-align: center; vertical-align: middle;">
+                    <img src="{{ 'image/snack/default_snack_image.jpeg' }}" width="100px" height="100px">
                 </td>
-                <td style="text-align: center; vertical-align: middle;"><a href="{{ snack.url }}">{{ snack.url|slice:":80" }}...{% if snack.url|length > 80 %}(생략){% endif %}</a></td>
+                {% endif %}
+                {% if snack.url|length > 80 %}
+                <td style="text-align: center; vertical-align: middle;">
+                    <a href="{{ snack.url }}">{{ snack.url|slice:":80" }}...</a>
+                </td>
+                {% else %}
+                <td style="text-align: center; vertical-align: middle;">
+                    <a href="{{ snack.url }}">{{ snack.url }}</a>
+                </td>
+                {% endif %}
                 <td style="text-align: center; vertical-align: middle;">{{ snack.create_date }}</td>
             </tr>
             {% endfor %}
@@ -29,6 +42,44 @@
             {% endif %}
         </tbody>
     </table>
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 이전페이지 -->
+        {% if snack_request_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ snack_request_list.previous_page_number }}">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in snack_request_list.paginator.page_range %}
+        {% if page_number >= snack_request_list.number|add:-5 and page_number <= snack_request_list.number|add:5 %}
+        {% if page_number == snack_request_list.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if snack_request_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ snack_request_list.next_page_number }}">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
     <a href="{% url 'snack:request_create' %}" class="btn btn-primary">간식 신청하기</a>
 </div>
 {% endblock %}
