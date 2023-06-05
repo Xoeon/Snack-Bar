@@ -6,6 +6,6 @@ app_name = 'snack'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('snack/request_create/', views.snack_request_create,
-         name='snack_request_create'),
+    path('snack/request_create/', views.request_create,
+         name='request_create'),
 ]

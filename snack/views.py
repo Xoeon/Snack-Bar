@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Snack
-from .forms import SnackForm
+from .forms import RequestForm
 
 
 def index(request):
@@ -10,6 +10,15 @@ def index(request):
     return render(request, 'snack/snack_request_list.html', context)
 
 
-def snack_request_create(request):
-    form = SnackForm()
-    return render(request, 'snack/snack_request_create.html', {'form': form})
+def request_create(request):
+    if request.method == 'POST':
+        form = RequestForm(request.POST, request.FILES)
+        if form.is_valid():
+            snack = form.save(commit=False)
+            snack.create_date = timezone.now()
+            snack.save()
+            return redirect('snack:index')
+    else:
+        form = RequestForm()
+    context = {'form': form}
+    return render(request, 'snack/request_form.html', context)
