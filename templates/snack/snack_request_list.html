@@ -1,9 +1,32 @@
-{% if snack_request_list %}
-    <ul>
-        {% for snack in snack_request_list %}
-        <li><a href="/snack/{{ snack.id }}/">{{ snack.name }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-<p>신청된 간식이 없습니다.</p>
-{% endif %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<div class="container my-3">
+    <table class="table">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col" width="25%">간식 이름</th>
+                <th scope="col" width="20%">사진</th>
+                <th scope="col" width="30%">구매 URL</th>
+                <th scope="col" width="30%">신청 일자</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if snack_request_list %}
+            {% for snack in snack_request_list %}
+            <tr>
+                <td>{{ snack.name }}</td>
+                <td>
+                    <img src="{{ snack.image.url }}" width="100px" height="100px"
+                </td>
+                <td><a href="{{ snack.url }}">{{ snack.url|slice:":70" }}...{% if snack.url|length > 70 %}(생략){% endif %}</a></td>
+                <td>{{ snack.create_date }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="3">신청된 간식이 없습니다.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>

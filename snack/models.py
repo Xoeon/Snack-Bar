@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class Snack(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='snack/images/')
     url = models.URLField(max_length=500)
     create_date = models.DateTimeField(default=timezone.now)
 
