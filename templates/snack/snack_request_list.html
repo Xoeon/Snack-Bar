@@ -1,25 +1,25 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+{% extends 'base.html' %}
+{% block content %}
 <div class="container my-3">
     <table class="table">
         <thead>
             <tr class="table-dark">
-                <th scope="col" width="25%">간식 이름</th>
-                <th scope="col" width="20%">사진</th>
-                <th scope="col" width="30%">구매 URL</th>
-                <th scope="col" width="30%">신청 일자</th>
+                <th scope="col" width="20%" style="text-align: center;">간식 이름</th>
+                <th scope="col" width="20%" style="text-align: center;">사진</th>
+                <th scope="col" width="40%" style="text-align: center;">구매 URL</th>
+                <th scope="col" width="20%" style="text-align: center;">신청 일자</th>
             </tr>
         </thead>
         <tbody>
-            {% if snack_request_list %}
+            {% if snack_request_list %} 
             {% for snack in snack_request_list %}
             <tr>
-                <td>{{ snack.name }}</td>
-                <td>
+                <td style="text-align: center; vertical-align: middle;">{{ snack.name }}</td>
+                <td style="text-align: center; vertical-align: middle;">
                     <img src="{{ snack.image.url }}" width="100px" height="100px"
                 </td>
-                <td><a href="{{ snack.url }}">{{ snack.url|slice:":70" }}...{% if snack.url|length > 70 %}(생략){% endif %}</a></td>
-                <td>{{ snack.create_date }}</td>
+                <td style="text-align: center; vertical-align: middle;"><a href="{{ snack.url }}">{{ snack.url|slice:":80" }}...{% if snack.url|length > 80 %}(생략){% endif %}</a></td>
+                <td style="text-align: center; vertical-align: middle;">{{ snack.create_date }}</td>
             </tr>
             {% endfor %}
             {% else %}
@@ -29,4 +29,6 @@
             {% endif %}
         </tbody>
     </table>
+    <a href="{% url 'snack:snack_request_create' %}" class="btn btn-primary">간식 신청하기</a>
 </div>
+{% endblock %}
