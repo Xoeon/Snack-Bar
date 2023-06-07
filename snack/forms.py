@@ -10,5 +10,7 @@ class RequestForm(forms.ModelForm):
         fields = ['name', 'image', 'url', 'description']
         labels ={
             'name': '신청할 간식 이름',
+            'image': '간식의 사진',
             'url': '구매 사이트 주소',
+            'description': '개수 등 설명 추가'
         }
