@@ -41,11 +41,11 @@
                 <td style="text-align: center; vertical-align: middle;">{{ snack.requester }}</td>
                 <td style="text-align: center; vertical-align: middle;">{{ snack.create_date|date:"y/m/d" }}</td>
                 {% if snack.is_accepted %}
-                <td style="text-align: center; vertical-align: middle;">
+                <td style="text-align: center; vertical-align: middle; font-size: 13px;">
                     <span style="color:mediumseagreen">●</span> {{ snack.supply_year }}년 {{ snack.supply_month }}월 비치 예정
                 </td>
                 {% else %}
-                    <td style="text-align: center; vertical-align: middle;"><span style="color:orange">●</span> 주문 대기중</td>
+                    <td style="text-align: center; vertical-align: middle; font-size: 13px;"><span style="color:orange">●</span> 주문 대기중</td>
                 {% endif %}
                 {% if request.user == snack.requester %}
                 <td style="text-align: center; vertical-align: middle;">

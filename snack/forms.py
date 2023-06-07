@@ -14,3 +14,9 @@ class RequestForm(forms.ModelForm):
             'url': '구매 사이트 주소',
             'description': '개수 등 설명 추가'
         }
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'url': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.TextInput(attrs={'class': 'form-control'}),
+        }
