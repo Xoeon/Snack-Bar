@@ -11,8 +11,8 @@ urlpatterns = [
     #request_views.py
     path('snack/request_create/', request_views.request_create,
          name='request_create'),
-    path('request/modify/<int:snack_id>/', request_views.request_modify,
+    path('snack/modify/<int:snack_id>/', request_views.request_modify,
          name='request_modify'),
-    path('request/delete/<int:snack_id>/', request_views.request_delete, 
+    path('snack/delete/<int:snack_id>/', request_views.request_delete, 
          name='request_delete'),
 ]

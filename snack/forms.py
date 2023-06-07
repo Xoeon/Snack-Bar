@@ -7,7 +7,7 @@ class RequestForm(forms.ModelForm):
 
     class Meta:
         model = Snack
-        fields = ['name', 'image', 'url']
+        fields = ['name', 'image', 'url', 'description']
         labels ={
             'name': '신청할 간식 이름',
             'url': '구매 사이트 주소',

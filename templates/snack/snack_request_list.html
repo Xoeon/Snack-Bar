@@ -4,9 +4,10 @@
     <table class="table">
         <thead>
             <tr class="table-success">
-                <th scope="col" width="20%" style="text-align: center;">간식 이름</th>
-                <th scope="col" width="10%" style="text-align: center;">사진</th>
-                <th scope="col" width="35%" style="text-align: center;">구매 URL</th>
+                <th scope="col" width="15%" style="text-align: center;">간식 이름</th>
+                <th scope="col" width="5%" style="text-align: center;">사진</th>
+                <th scope="col" width="25%" style="text-align: center;">구매 URL</th>
+                <th scope="col" width="20%" style="text-align: center;">설명</th>
                 <th scope="col" width="10%" style="text-align: center;">신청인</th>
                 <th scope="col" width="20%" style="text-align: center;">신청 일자</th>
                 <th scope="col" width="2.5%" style="text-align: center;"></th>
@@ -26,17 +27,18 @@
                     <img src="{{ 'image/snack/default_snack_image.jpeg' }}" width="100px" height="100px">
                 </td>
                 {% endif %}
-                {% if snack.url|length > 80 %}
+                {% if snack.url|length > 88 %}
                 <td style="text-align: center; vertical-align: middle;">
-                    <a href="{{ snack.url }}">{{ snack.url|slice:":80" }}...</a>
+                    <a href="{{ snack.url }}" style="font-size:12px">{{ snack.url|slice:":88" }}...</a>
                 </td>
                 {% else %}
                 <td style="text-align: center; vertical-align: middle;">
                     <a href="{{ snack.url }}">{{ snack.url }}</a>
                 </td>
                 {% endif %}
+                <td style="text-align: center; vertical-align: middle;"">{{ snack.description }}</td>
                 <td style="text-align: center; vertical-align: middle;"">{{ snack.requester }}</td>
-                <td style="text-align: center; vertical-align: middle;">{{ snack.create_date }}</td>
+                <td style="text-align: center; vertical-align: middle;">{{ snack.create_date|date:"y/m/d H:i" }}</td>
                 {% if request.user == snack.requester %}
                 <td style="text-align: center; vertical-align: middle;">
                     <a href="{% url 'snack:request_modify' snack.id %}" class="btn btn-secondary btn-sm">
