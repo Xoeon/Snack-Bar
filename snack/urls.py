@@ -1,14 +1,18 @@
 from django.urls import path
-from . import views
+
+from .views import base_views, request_views
 
 app_name = 'snack'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('snack/request_create/', views.request_create,
+    #base_views.py
+    path('', base_views.index, name='index'),
+
+    #request_views.py
+    path('snack/request_create/', request_views.request_create,
          name='request_create'),
-    path('request/modify/<int:snack_id>/', views.request_modify,
+    path('request/modify/<int:snack_id>/', request_views.request_modify,
          name='request_modify'),
-    path('request/delete/<int:snack_id>/', views.request_delete, 
+    path('request/delete/<int:snack_id>/', request_views.request_delete, 
          name='request_delete'),
 ]
