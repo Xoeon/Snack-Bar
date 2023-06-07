@@ -15,4 +15,5 @@ urlpatterns = [
          name='request_modify'),
     path('snack/delete/<int:snack_id>/', request_views.request_delete, 
          name='request_delete'),
+     path('snack/vote/<int:snack_id>/', request_views.request_vote, name='request_vote'),
 ]

@@ -50,3 +50,13 @@ def request_delete(request, snack_id):
         return redirect('snack:index')
     snack.delete()
     return redirect('snack:index')
+
+
+@login_required(login_url='user:login')
+def request_vote(request, snack_id):
+    snack = get_object_or_404(Snack, pk=snack_id)
+    if request.user == snack.requester:
+        messages.error(request, '본인이 신청한 간식은 추천할 수 없습니다.')
+    else:
+        snack.voter.add(request.user)
+    return redirect('snack:index')
