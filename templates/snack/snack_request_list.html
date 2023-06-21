@@ -29,20 +29,22 @@
                     }
                 </style>
                 <td style="text-align: center; vertical-align: middle;">
-                    {% if request.user != snack.requester %}
-                    <a href="{% url 'snack:request_vote' snack.id %}" onclick="return confirm('정말로 추천하시겠습니까?')">
-                        <button type="button" class="recommend btn btn-xs btn-outline-secondary">
+                    {% if request.user != snack.requester and not request.user in snack.voter.all %}
+                      <a href="{% url 'snack:request_vote' snack.id %}" onclick="return confirm('정말로 추천하시겠습니까?')">
+                        <button type="button" class="recommend btn btn-xs btn-outline-secondary btn-circle">
+                          <span style="display: flex; align-items: center;">
                             <i class="fas fa-thumbs-up"></i>
+                            <span class="vote-count" style="font-size: 13px; text-decoration: none; margin-left: 5px;">{{ snack.vote_count }}</span>
+                          </span>
                         </button>
-                    </a>
-                    <span class="vote-count" style="font-size : 13px; text-decoration: none;">{{ snack.voter.count }}</span>
+                      </a>
                     {% else %}
-                    <a href="{% url 'snack:request_vote' snack.id %}" onclick="return confirm('본인이 신청한 간식은 추천할 수 없습니다.'); return false;">
-                        <button type="button" class="recommend btn btn-xs btn-outline-secondary">
-                            <i class="fas fa-thumbs-up"></i>
-                        </button>
-                    </a>
-                    <span class="vote-count" style="font-size : 13px; text-decoration: none;">{{ snack.voter.count }}</span>
+                      <button type="button" class="recommend btn btn-xs btn-outline-secondary btn-circle" disabled>
+                        <span style="display: flex; align-items: center;">
+                          <i class="fas fa-thumbs-up"></i>
+                          <span class="vote-count" style="font-size: 13px; text-decoration: none; margin-left: 5px;">{{ snack.vote_count }}</span>
+                        </span>
+                      </button>
                     {% endif %} 
                 </td>
                 <td style="text-align: center; vertical-align: middle;">{{ snack.name }}</td>

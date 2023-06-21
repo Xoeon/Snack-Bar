@@ -12,6 +12,7 @@ def request_create(request):
         form = RequestForm(request.POST, request.FILES)
         if form.is_valid():
             snack = form.save(commit=False)
+            snack.requester = request.user
             snack.create_date = timezone.now()
             snack.save()
             return redirect('snack:index')
@@ -27,11 +28,8 @@ def request_modify(request, snack_id):
     if request.user != snack.requester:
         messages.error(request, '수정권한이 없습니다')
         return redirect('snack:index')
-    if request.user != snack.requester:
-        messages.error(request, '수정권한이 없습니다')
-        return redirect('snack:index')
     if request.method == "POST":
-        form = RequestForm(request.POST, instance=snack)
+        form = RequestForm(request.POST, request.FILES, instance=snack)  # 수정된 사진 파일을 업로드하기 위해 request.FILES 추가
         if form.is_valid():
             snack = form.save(commit=False)
             snack.save()
@@ -59,4 +57,6 @@ def request_vote(request, snack_id):
         messages.error(request, '본인이 신청한 간식은 추천할 수 없습니다.')
     else:
         snack.voter.add(request.user)
+        snack.vote_count += 1
+        snack.save()
     return redirect('snack:index')
