@@ -10,6 +10,42 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Welcome to SnackBar !</title>
+    <style>
+        .header-bg {
+            background-color: rgb(205, 202, 218);
+        }
+
+        .custom-table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .custom-table th {
+            border-bottom: 1px solid #494949;
+        }
+
+        .custom-button {
+        border: 0.5px solid rgb(0, 0, 0);
+        background-color: white;
+        color: black;
+        }
+
+        .icon-container {
+        border: 1px solid white;
+        background-color: white;
+        display: inline-block;
+        padding: 2px;
+        }
+     
+        .icon-container a.btn {
+        background-color: white;
+        }
+        
+        .icon-container i {
+         color: black;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -19,8 +55,8 @@
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
     </ul>
     {% endif %}
     <!-- 기본 템플릿 안에 삽입될 내용 Start -->

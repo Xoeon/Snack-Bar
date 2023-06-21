@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container my-3">
-    <table class="table">
+    <table class="table custom-table">
         <thead>
-            <tr class="table-success">
+            <tr class="header-bg">
                 <th scope="col" width="1.5%" style="text-align: center;">추천</th>
                 <th scope="col" width="10%" style="text-align: center;">간식 이름</th>
                 <th scope="col" width="5%" style="text-align: center;">사진</th>
@@ -77,16 +77,20 @@
                 {% endif %}
                 {% if request.user == snack.requester %}
                 <td style="text-align: center; vertical-align: middle;">
-                    <a href="{% url 'snack:request_modify' snack.id %}" class="btn btn-secondary btn-sm">
-                        <i class="fas fa-edit"></i>
-                    </a>                    
+                    <span class="icon-container">
+                        <a href="{% url 'snack:request_modify' snack.id %}" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </span>                    
                 </td>
                 {% endif %}
                 {% if request.user == snack.requester %}
                 <td style="text-align: center; vertical-align: middle;">
-                    <a href="{% url 'snack:request_delete' snack.id %}" class="btn btn-secondary btn-sm" onclick="return confirm('정말로 삭제하시겠습니까?')">
-                        <i class="far fa-trash-alt"></i>
-                    </a>                    
+                    <span class="icon-container">
+                        <a href="{% url 'snack:request_delete' snack.id %}" class="btn btn-secondary btn-sm" onclick="return confirm('정말로 삭제하시겠습니까?')">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </span>
                 </td>
                 {% endif %}
             </tr>
@@ -136,6 +140,6 @@
         {% endif %}
     </ul>
     <!-- 페이징처리 끝 -->
-    <a href="{% url 'snack:request_create' %}" class="btn btn-secondary btn-sm ">간식 신청하기</a>
+    <a href="{% url 'snack:request_create' %}" class="btn custom-button btn-sm ">간식 신청하기</a>
 </div>
 {% endblock %}
