@@ -23,6 +23,10 @@ class Snack(models.Model):
     requester = models.ForeignKey(
         User, on_delete=models.CASCADE, default=1, related_name='requester_snack')
     voter = models.ManyToManyField(User, related_name='voter_snack')
+    vote_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering=['-vote_count']

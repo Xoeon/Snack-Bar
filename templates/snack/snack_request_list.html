@@ -4,8 +4,8 @@
     <table class="table">
         <thead>
             <tr class="table-success">
+                <th scope="col" width="1.5%" style="text-align: center;">추천</th>
                 <th scope="col" width="10%" style="text-align: center;">간식 이름</th>
-                <th scope="col" width="1.5%" style="text-align: center;"></th>
                 <th scope="col" width="5%" style="text-align: center;">사진</th>
                 <th scope="col" width="25%" style="text-align: center;">구매 URL</th>
                 <th scope="col" width="23.5%" style="text-align: center;">설명</th>
@@ -28,24 +28,24 @@
                         border-radius: 0.2rem;
                     }
                 </style>
-                <td style="text-align: center; vertical-align: middle;">{{ snack.name }}</td>
                 <td style="text-align: center; vertical-align: middle;">
                     {% if request.user != snack.requester %}
                     <a href="{% url 'snack:request_vote' snack.id %}" onclick="return confirm('정말로 추천하시겠습니까?')">
                         <button type="button" class="recommend btn btn-xs btn-outline-secondary">
                             <i class="fas fa-thumbs-up"></i>
                         </button>
-                        {{ snack.voter.count }}
                     </a>
+                    <span class="vote-count" style="font-size : 13px; text-decoration: none;">{{ snack.voter.count }}</span>
                     {% else %}
                     <a href="{% url 'snack:request_vote' snack.id %}" onclick="return confirm('본인이 신청한 간식은 추천할 수 없습니다.'); return false;">
                         <button type="button" class="recommend btn btn-xs btn-outline-secondary">
                             <i class="fas fa-thumbs-up"></i>
                         </button>
-                        {{ snack.voter.count }}
                     </a>
-                    {% endif %}
+                    <span class="vote-count" style="font-size : 13px; text-decoration: none;">{{ snack.voter.count }}</span>
+                    {% endif %} 
                 </td>
+                <td style="text-align: center; vertical-align: middle;">{{ snack.name }}</td>
                 {% if snack.image %}
                 <td style="text-align: center; vertical-align: middle;">
                     <img src="{{ snack.image.url }}" width="100px" height="100px" </td>
